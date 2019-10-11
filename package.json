@@ -1,0 +1,24 @@
+{
+  "name": "rtwebservice",
+  "version": "1.0.0",
+  "description": "none",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "none"
+  },
+  "keywords": [
+    "none"
+  ],
+  "author": "Edward Nardo",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.541.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mysql": "^2.17.1",
+    "swagger-node-express": "^2.1.3",
+    "swagger-ui-express": "^4.1.1"
+  }
+}
