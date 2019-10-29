@@ -172,6 +172,13 @@ app.post('/denyUser', function (req, res) {
   }
 });
 
+app.get('/users', function (req, res) {
+  connection.query('SELECT * from radio_telescope.user', function (error, results, fields) {
+    if (error) throw error;
+    res.end(JSON.stringify(results));
+  });
+});
+
 
 
 
