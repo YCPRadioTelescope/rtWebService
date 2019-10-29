@@ -19,6 +19,7 @@ run node index.js
 
 ## Deploying to AWS
 
+Go to aws and get an access key and a secret key<br/>
 Set up Docker Desktop on your machine https://www.docker.com/products/docker-desktop<br/>
 navigate to the project in the terminal<br/>
 run docker build -t 'your username'/node-web-app . to create a new docker container <br/>
