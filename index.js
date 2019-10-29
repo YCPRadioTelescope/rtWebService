@@ -48,8 +48,8 @@ var server = app.listen(config.port ,  "0.0.0.0", function () {
 });
 
 //rest api to get users
-app.get('/user', function (req, res) {
-  connection.query('select * from radio_telescope.user', function (error, results, fields) {
+app.get('/pendingUsers', function (req, res) {
+  connection.query('SELECT * from radio_telescope.user WHERE status = ? ', ['INACTIVE'], function (error, results, fields) {
     if (error) throw error;
     res.end(JSON.stringify(results));
   });
@@ -109,3 +109,69 @@ app.post('/email', function (req, res){
     res.sendStatus(200);
   }
 });
+
+//create test user that is pending
+app.post('/createInactiveUser', function (req, res) {
+
+  if(!req.body.first_name || !req.body.last_name || !req.body.password || !req.body.status){
+    res.statusMessage = "Request does not contain required fields";
+    res.sendStatus(401);
+  }
+  else {
+    console.log('req body', req.body);
+    let sql = "INSERT INTO radio_telescope.user (first_name, last_name, email_address, password, status) VALUES ('"+req.body.first_name+"', '"+req.body.last_name+"', '"+req.body.email_address+"', '"+req.body.password+"', 'INACTIVE')";
+    connection.query(sql, function (error, results) {
+      if (error) throw error;
+      res.end(JSON.stringify(results));
+    });
+  }
+});
+
+app.post('/deleteUser', function (req, res) {
+
+  if(!req.body.id ){
+    res.statusMessage = "Request does not contain required fields";
+    res.sendStatus(401);
+  }
+  else {
+    console.log('req body', req.body);
+    connection.query("DELETE FROM radio_telescope.user WHERE id = ?", [req.body.id], function (error, results) {
+      if (error) throw error;
+      res.end(JSON.stringify(results));
+    });
+  }
+});
+
+app.post('/approveUser', function (req, res) {
+
+  if(!req.body.id ){
+    res.statusMessage = "Request does not contain required fields";
+    res.sendStatus(401);
+  }
+  else {
+    console.log('req body', req.body);
+    connection.query("UPDATE radio_telescope.user SET status = 'ACTIVE' WHERE id = ?", [req.body.id], function (error, results) {
+      if (error) throw error;
+      res.end(JSON.stringify(results));
+    });
+  }
+});
+
+app.post('/denyUser', function (req, res) {
+
+  if(!req.body.id ){
+    res.statusMessage = "Request does not contain required fields";
+    res.sendStatus(401);
+  }
+  else {
+    console.log('req body', req.body);
+    connection.query("UPDATE radio_telescope.user SET status = 'BANNED' WHERE id = ?", [req.body.id], function (error, results) {
+      if (error) throw error;
+      res.end(JSON.stringify(results));
+    });
+  }
+});
+
+
+
+
