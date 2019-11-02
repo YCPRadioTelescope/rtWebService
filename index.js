@@ -47,136 +47,176 @@ var server = app.listen(config.port ,  "0.0.0.0", function () {
 
 });
 
+
+/*********************************
+**********************************
+*           ROUTES
+**********************************
+ *********************************/
+
 //rest api to get users
-app.get('/pendingUsers', function (req, res) {
-  connection.query('SELECT * from radio_telescope.user WHERE status = ? ', ['INACTIVE'], function (error, results, fields) {
-    if (error) throw error;
-    res.end(JSON.stringify(results));
-  });
+app.post('/pendingUsers', function (req, res) {
+  if(req.body.UUID !== config.UUID){
+    res.statusMessage = "Wrong credentials";
+    res.sendStatus(403);
+  }
+  else {
+    connection.query('SELECT * from radio_telescope.user WHERE status = ? ', ['INACTIVE'], function (error, results, fields) {
+      if (error) throw error;
+      res.end(JSON.stringify(results));
+    });
+  }
 });
 
 //api to send email
 app.post('/email', function (req, res){
-  console.log(JSON.stringify(req.body));
-
-  if(!req.body.destination || !req.body.message || !req.body.subject){
-    res.statusMessage = "Request does not contain required fields";
-    res.sendStatus(401);
+  if(req.body.UUID !== config.UUID){
+    res.statusMessage = "Wrong credentials";
+    res.sendStatus(403);
   }
   else {
+    console.log(JSON.stringify(req.body));
 
-    let to = req.body.destination;
-    let message = req.body.message;
-    let subject = req.body.subject;
+    if (!req.body.destination || !req.body.message || !req.body.subject) {
+      res.statusMessage = "Request does not contain required fields";
+      res.sendStatus(401);
+    } else {
 
-    let params = {
-      Destination: { /* required */
-        ToAddresses: [
-          to,
-        ]
-      },
-      Message: { /* required */
-        Body: { /* required */
-          Html: {
-            Charset: "UTF-8",
-            Data: message
+      let to = req.body.destination;
+      let message = req.body.message;
+      let subject = req.body.subject;
+
+      let params = {
+        Destination: { /* required */
+          ToAddresses: [
+            to,
+          ]
+        },
+        Message: { /* required */
+          Body: { /* required */
+            Html: {
+              Charset: "UTF-8",
+              Data: message
+            },
+            Text: {
+              Charset: "UTF-8",
+              Data: "TEXT_FORMAT_BODY"
+            }
           },
-          Text: {
-            Charset: "UTF-8",
-            Data: "TEXT_FORMAT_BODY"
+          Subject: {
+            Charset: 'UTF-8',
+            Data: subject
           }
         },
-        Subject: {
-          Charset: 'UTF-8',
-          Data: subject
-        }
-      },
-      Source: 'NO-REPLY@ycpradiotelescope.com', /* required */
-    };
+        Source: 'NO-REPLY@ycpradiotelescope.com', /* required */
+      };
 
 // Create the promise and SES service object
-    let sendPromise = new AWS.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
+      let sendPromise = new AWS.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
 
 // Handle promise's fulfilled/rejected states
-    sendPromise.then(
-      function (data) {
-        console.log(data.MessageId);
-      }).catch(
-      function (err) {
-        console.error(err, err.stack);
-      });
+      sendPromise.then(
+        function (data) {
+          console.log(data.MessageId);
+        }).catch(
+        function (err) {
+          console.error(err, err.stack);
+        });
 
-    res.sendStatus(200);
+      res.sendStatus(200);
+    }
   }
 });
 
 //create test user that is pending
 app.post('/createInactiveUser', function (req, res) {
-
-  if(!req.body.first_name || !req.body.last_name || !req.body.password || !req.body.status){
-    res.statusMessage = "Request does not contain required fields";
-    res.sendStatus(401);
+  if(req.body.UUID !== config.UUID){
+    res.statusMessage = "Wrong credentials";
+    res.sendStatus(403);
   }
   else {
-    console.log('req body', req.body);
-    let sql = "INSERT INTO radio_telescope.user (first_name, last_name, email_address, password, status) VALUES ('"+req.body.first_name+"', '"+req.body.last_name+"', '"+req.body.email_address+"', '"+req.body.password+"', 'INACTIVE')";
-    connection.query(sql, function (error, results) {
-      if (error) throw error;
-      res.end(JSON.stringify(results));
-    });
+    if (!req.body.first_name || !req.body.last_name || !req.body.password || !req.body.status) {
+      res.statusMessage = "Request does not contain required fields";
+      res.sendStatus(401);
+    } else {
+      console.log('req body', req.body);
+      let sql = "INSERT INTO radio_telescope.user (first_name, last_name, email_address, password, status) VALUES ('" + req.body.first_name + "', '" + req.body.last_name + "', '" + req.body.email_address + "', '" + req.body.password + "', 'INACTIVE')";
+      connection.query(sql, function (error, results) {
+        if (error) throw error;
+        res.end(JSON.stringify(results));
+      });
+    }
   }
 });
 
 app.post('/deleteUser', function (req, res) {
-
-  if(!req.body.id ){
-    res.statusMessage = "Request does not contain required fields";
-    res.sendStatus(401);
+  if(req.body.UUID !== config.UUID){
+    res.statusMessage = "Wrong credentials";
+    res.sendStatus(403);
   }
   else {
-    console.log('req body', req.body);
-    connection.query("DELETE FROM radio_telescope.user WHERE id = ?", [req.body.id], function (error, results) {
-      if (error) throw error;
-      res.end(JSON.stringify(results));
-    });
+    if (!req.body.id) {
+      res.statusMessage = "Request does not contain required fields";
+      res.sendStatus(401);
+    } else {
+      console.log('req body', req.body);
+      connection.query("DELETE FROM radio_telescope.user WHERE id = ?", [req.body.id], function (error, results) {
+        if (error) throw error;
+        res.end(JSON.stringify(results));
+      });
+    }
   }
 });
 
 app.post('/approveUser', function (req, res) {
-
-  if(!req.body.id ){
-    res.statusMessage = "Request does not contain required fields";
-    res.sendStatus(401);
+  if(req.body.UUID !== config.UUID){
+    res.statusMessage = "Wrong credentials";
+    res.sendStatus(403);
   }
   else {
-    console.log('req body', req.body);
-    connection.query("UPDATE radio_telescope.user SET status = 'ACTIVE' WHERE id = ?", [req.body.id], function (error, results) {
-      if (error) throw error;
-      res.end(JSON.stringify(results));
-    });
+    if (!req.body.id) {
+      res.statusMessage = "Request does not contain required fields";
+      res.sendStatus(401);
+    } else {
+      console.log('req body', req.body);
+      connection.query("UPDATE radio_telescope.user SET status = 'ACTIVE' WHERE id = ?", [req.body.id], function (error, results) {
+        if (error) throw error;
+        res.end(JSON.stringify(results));
+      });
+    }
   }
 });
 
 app.post('/denyUser', function (req, res) {
-
-  if(!req.body.id ){
-    res.statusMessage = "Request does not contain required fields";
-    res.sendStatus(401);
+  if(req.body.UUID !== config.UUID){
+    res.statusMessage = "Wrong credentials";
+    res.sendStatus(403);
   }
   else {
-    console.log('req body', req.body);
-    connection.query("UPDATE radio_telescope.user SET status = 'BANNED' WHERE id = ?", [req.body.id], function (error, results) {
+    if (!req.body.id) {
+      res.statusMessage = "Request does not contain required fields";
+      res.sendStatus(401);
+    } else {
+      console.log('req body', req.body);
+      connection.query("UPDATE radio_telescope.user SET status = 'BANNED' WHERE id = ?", [req.body.id], function (error, results) {
+        if (error) throw error;
+        res.end(JSON.stringify(results));
+      });
+    }
+  }
+});
+
+app.post('/users', function (req, res) {
+  if(req.body.UUID !== config.UUID){
+    res.statusMessage = "Wrong credentials";
+    res.sendStatus(403);
+  }
+  else {
+    connection.query('SELECT * from radio_telescope.user', function (error, results, fields) {
       if (error) throw error;
       res.end(JSON.stringify(results));
     });
   }
-});
-
-app.get('/users', function (req, res) {
-  connection.query('SELECT * from radio_telescope.user', function (error, results, fields) {
-    if (error) throw error;
-    res.end(JSON.stringify(results));
-  });
 });
 
 
