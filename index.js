@@ -75,7 +75,7 @@ app.post('/email', function (req, res){
     res.sendStatus(403);
   }
   else {
-    console.log(JSON.stringify(req.body));
+    //console.log(JSON.stringify(req.body));
 
     if (!req.body.destination || !req.body.message || !req.body.subject) {
       res.statusMessage = "Request does not contain required fields";
@@ -117,7 +117,7 @@ app.post('/email', function (req, res){
 // Handle promise's fulfilled/rejected states
       sendPromise.then(
         function (data) {
-          console.log(data.MessageId);
+          //console.log(data.MessageId);
         }).catch(
         function (err) {
           console.error(err, err.stack);
@@ -218,3 +218,9 @@ app.post('/users', function (req, res) {
     });
   }
 });
+
+app.get('/test', async (req, res) => {
+  res.json({message: 'pass!'})
+})
+
+module.exports = server;
