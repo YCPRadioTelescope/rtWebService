@@ -135,12 +135,12 @@ app.post('/createInactiveUser', function (req, res) {
     res.sendStatus(403);
   }
   else {
-    if (!req.body.first_name || !req.body.last_name || !req.body.password || !req.body.status) {
+    if (!req.body.first_name || !req.body.last_name || !req.body.email_address) {
       res.statusMessage = "Request does not contain required fields";
       res.sendStatus(401);
     } else {
       console.log('req body', req.body);
-      let sql = "INSERT INTO radio_telescope.user (first_name, last_name, email_address, password, status) VALUES ('" + req.body.first_name + "', '" + req.body.last_name + "', '" + req.body.email_address + "', '" + req.body.password + "', 'INACTIVE')";
+      let sql = "INSERT INTO radio_telescope.user (first_name, last_name, email_address, status) VALUES ('" + req.body.first_name + "', '" + req.body.last_name + "', '" + req.body.email_address + "', 'INACTIVE')";
       connection.query(sql, function (error, results) {
         if (error) throw error;
         res.end(JSON.stringify(results));
@@ -218,7 +218,3 @@ app.post('/users', function (req, res) {
     });
   }
 });
-
-
-
-

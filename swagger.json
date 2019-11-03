@@ -34,8 +34,8 @@
     "http"
   ],
   "paths": {
-    "/user": {
-      "get": {
+    "/users": {
+      "post": {
         "tags": [
           "user"
         ],
@@ -45,12 +45,171 @@
         "produces": [
           "application/json"
         ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/get"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "successful operation",
             "schema": {
               "$ref": "#/definitions/user"
             }
+          }
+        }
+      }
+    },
+    "/pendingUsers": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Gets users that are 'INACTIVE'",
+        "description": "",
+        "operationId": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "uuid for security",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/get"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          }
+        }
+      }
+    },
+    "/approveUser": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Takes a user that is 'INACTIVE' and makes them 'ACTIVE'",
+        "description": "",
+        "operationId": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/approveDeny"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/denyUser": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Takes a user that is 'INACTIVE' and makes them 'BANNED'",
+        "description": "",
+        "operationId": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/approveDeny"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/createInactiveUser": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Creates an 'INACTIVE' user for testing purposes",
+        "description": "",
+        "operationId": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/userII"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/deleteUser": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Delete a user for testing only",
+        "description": "",
+        "operationId": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/approveDeny"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
           }
         }
       }
@@ -124,9 +283,29 @@
         "name": "Email"
       }
     },
+    "userII": {
+      "type": "object",
+      "properties": {
+        "UUID": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "email_address": {
+          "type": "string"
+        }
+      }
+    },
     "email": {
       "type": "object",
       "properties": {
+        "UUID": {
+          "type": "string"
+        },
         "destination": {
           "type": "string"
         },
@@ -139,6 +318,25 @@
       },
       "xml": {
         "name": "Email"
+      }
+    },
+    "get": {
+      "type": "object",
+      "properties": {
+        "UUID": {
+          "type": "string"
+        }
+      }
+    },
+    "approveDeny": {
+      "type": "object",
+      "properties": {
+        "UUID": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        }
       }
     },
     "ApiResponse": {
