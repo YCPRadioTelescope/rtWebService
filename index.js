@@ -221,6 +221,13 @@ app.post('/users', function (req, res) {
 
 app.get('/test', async (req, res) => {
   res.json({message: 'pass!'})
-})
+});
+
+app.get('/appt', function (req, res) {
+    connection.query('SELECT * from radio_telescope.appointment', function (error, results, fields) {
+      if (error) throw error;
+      res.end(JSON.stringify(results));
+    });
+});
 
 module.exports = server;
