@@ -18,7 +18,7 @@ describe('get Endpoints', () => {
   })
 });
 
-
+///if not working, check rds inbound rules
 describe('post Endpoints', () => {
   it('post to pending users', async done => {
     const response = await request.post('/pendingUsers').send({

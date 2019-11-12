@@ -1,0 +1,137 @@
+{
+  "user": [
+    {
+      "id": 1,
+      "first_name": "Alyssa",
+      "last_name": "McDevitt",
+      "email_address": "amc@walkingDead.com",
+      "company": "none",
+      "phone_number": "0923409830498",
+      "password": "lkajfoqijgabdkjfhj",
+      "active": 0,
+      "status": "ACTIVE"
+    },
+    {
+      "id": 2,
+      "first_name": "Jason",
+      "last_name": "C",
+      "email_address": "something@some.com",
+      "company": "none",
+      "phone_number": "09384098",
+      "password": "asl;dkfj;alkdjf;l",
+      "active": 0,
+      "status": "PENDING"
+    },
+    {
+      "id": 3,
+      "first_name": "Joe",
+      "last_name": "Landau",
+      "email_address": "jland@itSucks.com",
+      "company": "none",
+      "phone_number": "9873498",
+      "password": "alkjsfdojef",
+      "active": 0,
+      "status": "ACTIVE"
+    },
+    {
+      "id": 4,
+      "first_name": "jeff",
+      "last_name": "jeffries",
+      "email_address": "jef@jeff.com",
+      "company": "none",
+      "phone_number": "238984733",
+      "password": "askjdf;lajdfl;kjaf",
+      "active": 0,
+      "status": "PENDING"
+    },
+    {
+      "id": 5,
+      "first_name": "Don",
+      "last_name": "Hake",
+      "email_address": "djHake@ycp.edu",
+      "company": "none",
+      "phone_number": "092340983",
+      "password": "dslkafjdl;kfjas;dlkfj",
+      "active": 0,
+      "status": "PENDING"
+    }
+  ],
+  "weather": [
+    {
+      "name": "Wind_Speed",
+      "detail": 25.7
+    },
+    {
+      "name": "Wind_Direction",
+      "detail": "NNW"
+    },
+    {
+      "name": "Temperature_degF",
+      "detail": 72.6
+    },
+    {
+      "name": "Rain_Rate",
+      "detail": 3
+    },
+    {
+      "name": "Rain_Total",
+      "detail": 0
+    },
+    {
+      "name": "Rain_Day",
+      "detail": 0
+    },
+    {
+      "name": "Rain_Month",
+      "detail": 1.27
+    },
+    {
+      "name": "Barometric_Pressure",
+      "detail": 30.52
+    },
+    {
+      "name": "Dew_Point",
+      "detail": 47.9
+    },
+    {
+      "name": "Wind_Chill",
+      "detail": 0
+    },
+    {
+      "name": "Humidity",
+      "detail": 12.6
+    },
+    {
+      "name": "Heat_Index",
+      "detail": 0
+    }
+  ],
+  "thresholds": [
+    {
+      "Wind_Speed": 12,
+      "Snow_Dump_Time": 30
+    }
+  ],
+  "sensorStatus": [
+    {
+      "name": "gate",
+      "details": 0
+    },
+    {
+      "name": "Proximity",
+      "details": 0
+    },
+    {
+      "name": "Azimuth_Motor",
+      "details": 0
+    },
+    {
+      "name": "Elevation_Motor",
+      "details": 1
+    },
+    {
+      "name": "Weather_Station",
+      "details": 0
+    }
+  ]
+}

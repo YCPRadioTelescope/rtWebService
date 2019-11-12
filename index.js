@@ -6,7 +6,20 @@ var bodyParser = require('body-parser');
 var AWS = require('aws-sdk');
 var config = require('./config.json');
 
-//swagger stuff
+/////fake db
+const jsonServer = require('json-server');
+const fakeServer = jsonServer.create();
+const router = jsonServer.router('db.json');
+const middlewares = jsonServer.defaults();
+
+//lowdb stuff to manipulate the fake db
+const low = require('lowdb')
+const FileSync = require('lowdb/adapters/FileSync')
+
+const adapter = new FileSync('db.json')
+const db = low(adapter)
+
+/////swagger stuff
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
@@ -53,6 +66,23 @@ var server = app.listen(config.port ,  "0.0.0.0", function () {
 *           ROUTES
 **********************************
  *********************************/
+
+app.post('/weather', function (req, res) {
+  if(req.body.UUID !== config.UUID){
+    res.statusMessage = "Wrong credentials";
+    res.sendStatus(403);
+  }
+  else {
+    console.log(db.get('weather')
+      .value());
+
+    db.get('weather')
+      .find({ name: 'Rain_Rate' })
+      .assign({ detail: 3})
+      .write()
+    res.send(db.get('weather').value());
+  }
+});
 
 //rest api to get users
 app.post('/pendingUsers', function (req, res) {
