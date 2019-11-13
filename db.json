@@ -71,7 +71,7 @@
     },
     {
       "name": "Rain_Rate",
-      "detail": 3
+      "detail": 0
     },
     {
       "name": "Rain_Total",
@@ -114,24 +114,34 @@
   ],
   "sensorStatus": [
     {
+      "id": 0,
       "name": "gate",
-      "details": 0
+      "details": 0,
+      "override": 1
     },
     {
+      "id": 1,
       "name": "Proximity",
-      "details": 0
+      "details": 2,
+      "override": 0
     },
     {
+      "id": 2,
       "name": "Azimuth_Motor",
-      "details": 0
+      "details": 1,
+      "override": 1
     },
     {
+      "id": 3,
       "name": "Elevation_Motor",
-      "details": 1
+      "details": 0,
+      "override": 0
     },
     {
+      "id": 4,
       "name": "Weather_Station",
-      "details": 0
+      "details": 2,
+      "override": 0
     }
   ]
 }

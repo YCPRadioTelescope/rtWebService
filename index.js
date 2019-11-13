@@ -66,6 +66,7 @@ var server = app.listen(config.port ,  "0.0.0.0", function () {
 *           ROUTES
 **********************************
  *********************************/
+//fake db calls
 
 app.post('/weather', function (req, res) {
   if(req.body.UUID !== config.UUID){
@@ -73,18 +74,40 @@ app.post('/weather', function (req, res) {
     res.sendStatus(403);
   }
   else {
-    console.log(db.get('weather')
-      .value());
-
-    db.get('weather')
-      .find({ name: 'Rain_Rate' })
-      .assign({ detail: 3})
-      .write()
     res.send(db.get('weather').value());
   }
 });
 
-//rest api to get users
+app.post('/sensorStatus', function (req, res) {
+  if(req.body.UUID !== config.UUID){
+    res.statusMessage = "Wrong credentials";
+    res.sendStatus(403);
+  }
+  else {
+    console.log(db.get('sensorStatus')
+      .value());
+
+    res.send(db.get('sensorStatus').value());
+  }
+});
+
+app.post('/setOverride', function (req, res) {
+  if(req.body.UUID !== config.UUID){
+    res.statusMessage = "Wrong credentials";
+    res.sendStatus(403);
+  }
+  else {
+    console.log(req.body);
+
+    db.get('sensorStatus')
+      .find({ name: req.body.name })
+      .assign({ override: req.body.override})
+      .write()
+    res.send(db.get('sensorStatus').value());
+  }
+});
+
+//rest api calls to real db
 app.post('/pendingUsers', function (req, res) {
   if(req.body.UUID !== config.UUID){
     res.statusMessage = "Wrong credentials";
