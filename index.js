@@ -60,6 +60,64 @@ var server = app.listen(config.port ,  "0.0.0.0", function () {
 
 });
 
+/*
+app.post('/culineerEmail', function (req, res){
+
+
+
+    //console.log(JSON.stringify(req.body));
+
+    if (!req.body.destination || !req.body.message || !req.body.subject) {
+      res.statusMessage = "Request does not contain required fields";
+      res.sendStatus(401);
+    } else {
+
+      let to = req.body.destination;
+      let message = req.body.message;
+      let subject = req.body.subject;
+
+      let params = {
+        Destination: { /!* required *!/
+          ToAddresses: [
+            to,
+          ]
+        },
+        Message: { /!* required *!/
+          Body: { /!* required *!/
+            Html: {
+              Charset: "UTF-8",
+              Data: message
+            },
+            Text: {
+              Charset: "UTF-8",
+              Data: "TEXT_FORMAT_BODY"
+            }
+          },
+          Subject: {
+            Charset: 'UTF-8',
+            Data: subject
+          }
+        },
+        Source: 'noreply@culineer.co', /!* required *!/
+      };
+
+// Create the promise and SES service object
+      let sendPromise = new AWS.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
+
+// Handle promise's fulfilled/rejected states
+      sendPromise.then(
+        function (data) {
+          //console.log(data.MessageId);
+        }).catch(
+        function (err) {
+          console.error(err, err.stack);
+        });
+
+      res.sendStatus(200);
+    }
+
+});
+*/
 
 /*********************************
 **********************************
@@ -276,11 +334,95 @@ app.get('/test', async (req, res) => {
   res.json({message: 'pass!'})
 });
 
-app.get('/appt', function (req, res) {
+app.post('/appointments', function (req, res) {
+  if(req.body.UUID !== config.UUID){
+    res.statusMessage = "Wrong credentials";
+    res.sendStatus(403);
+  }
+  else {
     connection.query('SELECT * from radio_telescope.appointment', function (error, results, fields) {
       if (error) throw error;
       res.end(JSON.stringify(results));
     });
+    }
+});
+
+app.post('/recentAppointments', function (req, res) {
+  if(req.body.UUID !== config.UUID){
+    res.statusMessage = "Wrong credentials";
+    res.sendStatus(403);
+  }
+  else {
+    var moment = require('moment');
+    var time = moment();
+    var time_format = time.format('YYYY-MM-DD HH:mm:ss');
+    //console.log(time_format);
+    connection.query('SELECT * from radio_telescope.appointment\n' +
+      'WHERE start_time <= ? \n' +
+      'ORDER BY start_time DESC\n' +
+      'LIMIT 10', [time_format],function (error, results, fields) {
+      if (error) throw error;
+      res.end(JSON.stringify(results));
+    });
+  }
+});
+
+app.post('/futureAppointments', function (req, res) {
+  if(req.body.UUID !== config.UUID){
+    res.statusMessage = "Wrong credentials";
+    res.sendStatus(403);
+  }
+  else {
+    var moment = require('moment');
+    var time = moment();
+    var time_format = time.format('YYYY-MM-DD HH:mm:ss');
+    //console.log(time_format);
+    connection.query('SELECT * from radio_telescope.appointment\n' +
+      'WHERE start_time >= ? \n' +
+      'ORDER BY start_time ASC\n' +
+      'LIMIT 10', [time_format],function (error, results, fields) {
+      if (error) throw error;
+      res.end(JSON.stringify(results));
+    });
+  }
+});
+
+app.post('/createAppointment', function (req, res) {
+  if(req.body.UUID !== config.UUID){
+    res.statusMessage = "Wrong credentials";
+    res.sendStatus(403);
+  }
+  else {
+    console.log("start time", req.body.start_time);
+    if (!req.body.userId || !req.body.start_time || !req.body.end_time) {
+      res.statusMessage = "Request does not contain required fields";
+      res.sendStatus(401);
+    } else {
+      let sql = "INSERT INTO radio_telescope.appointment (user_id, start_time, end_time, status, telescope_id, public, type, priority) VALUES ('" + req.body.userId + "', '" + req.body.start_time + "', '" + req.body.end_time + "', 'SCHEDULED', '1', '1', 'POINT', 'PRIMARY')";
+      connection.query(sql, function (error, results) {
+        if (error) throw error;
+        res.end(JSON.stringify(results));
+      });
+    }
+  }
+});
+
+app.post('/deleteAppointment', function (req, res) {
+  if(req.body.UUID !== config.UUID){
+    res.statusMessage = "Wrong credentials";
+    res.sendStatus(403);
+  }
+  else {
+    if (!req.body.id) {
+      res.statusMessage = "Request does not contain required fields";
+      res.sendStatus(401);
+    } else {
+      connection.query("DELETE FROM radio_telescope.appointment WHERE id = ?", [req.body.id], function (error, results) {
+        if (error) throw error;
+        res.end(JSON.stringify(results));
+      });
+    }
+  }
 });
 
 module.exports = server;

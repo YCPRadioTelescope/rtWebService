@@ -223,7 +223,6 @@
         "description": "",
         "operationId": "",
         "produces": [
-          "application/xml",
           "application/json"
         ],
         "parameters": [
@@ -234,6 +233,160 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/email"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/appointments": {
+      "post": {
+        "tags": [
+          "appointment"
+        ],
+        "summary": "gets all appointments",
+        "description": "",
+        "operationId": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/get"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/appointment"
+            }
+          }
+        }
+      }
+    },
+    "/recentAppointments": {
+      "post": {
+        "tags": [
+          "appointment"
+        ],
+        "summary": "returns the past 10 appointments",
+        "description": "",
+        "operationId": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/get"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/appointment"
+            }
+          }
+        }
+      }
+    },
+    "/futureAppointments": {
+      "post": {
+        "tags": [
+          "appointment"
+        ],
+        "summary": "returns the next 10 appointments",
+        "description": "",
+        "operationId": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/get"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/appointment"
+            }
+          }
+        }
+      }
+    },
+    "/createAppointment": {
+      "post": {
+        "tags": [
+          "appointment"
+        ],
+        "summary": "creates a test appointment",
+        "description": "",
+        "operationId": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "start time and end time should be in this format -> 2019-11-20 19:52:00",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/appointmentCreation"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/deleteAppointment": {
+      "post": {
+        "tags": [
+          "appointment"
+        ],
+        "summary": "deletes a test appointment",
+        "description": "",
+        "operationId": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/approveDeny"
             }
           }
         ],
@@ -336,6 +489,59 @@
         },
         "id": {
           "type": "integer"
+        }
+      }
+    },
+    "appointment": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "user_id": {
+          "type": "string"
+        },
+        "start_time": {
+          "type": "string"
+        },
+        "end_time": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "telescope_id": {
+          "type": "string"
+        },
+        "public": {
+          "type": "string"
+        },
+        "orientation_id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "celestial_body_id": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "string"
+        }
+      }
+    },
+    "appointmentCreation": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "string"
+        },
+        "start_time": {
+          "type": "string"
+        },
+        "end_time": {
+          "type": "string"
         }
       }
     },
