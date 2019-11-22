@@ -534,8 +534,12 @@
     "appointmentCreation": {
       "type": "object",
       "properties": {
-        "user_id": {
+        "UUID": {
           "type": "string"
+        },
+        "user_id": {
+          "type": "integer",
+          "format": "int64"
         },
         "start_time": {
           "type": "string"
