@@ -165,6 +165,42 @@ app.post('/setOverride', function (req, res) {
   }
 });
 
+app.post('/setStatus', function (req, res) {
+  if(req.body.UUID !== config.UUID){
+    res.statusMessage = "Wrong credentials";
+    res.sendStatus(403);
+  }
+  if (!req.body.details) {
+    res.statusMessage = "Request does not contain required fields";
+    res.sendStatus(401);
+  }
+  else {
+    console.log(req.body);
+
+    db.get('sensorStatus')
+        .find({ name: "gate" })
+        .assign({ details: req.body.details})
+        .write()
+    db.get('sensorStatus')
+        .find({ name: "Proximity" })
+        .assign({ details: req.body.details})
+        .write()
+    db.get('sensorStatus')
+        .find({ name: "Azimuth_Motor" })
+        .assign({ details: req.body.details})
+        .write()
+    db.get('sensorStatus')
+        .find({ name: "Elevation_Motor" })
+        .assign({ details: req.body.details})
+        .write()
+    db.get('sensorStatus')
+        .find({ name: "Weather_Station" })
+        .assign({ details: req.body.details})
+        .write()
+    res.send(db.get('sensorStatus').value());
+  }
+});
+
 //rest api calls to real db
 app.post('/pendingUsers', function (req, res) {
   if(req.body.UUID !== config.UUID){
