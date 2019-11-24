@@ -60,64 +60,6 @@ var server = app.listen(config.port ,  "0.0.0.0", function () {
 
 });
 
-/*
-app.post('/culineerEmail', function (req, res){
-
-
-
-    //console.log(JSON.stringify(req.body));
-
-    if (!req.body.destination || !req.body.message || !req.body.subject) {
-      res.statusMessage = "Request does not contain required fields";
-      res.sendStatus(401);
-    } else {
-
-      let to = req.body.destination;
-      let message = req.body.message;
-      let subject = req.body.subject;
-
-      let params = {
-        Destination: { /!* required *!/
-          ToAddresses: [
-            to,
-          ]
-        },
-        Message: { /!* required *!/
-          Body: { /!* required *!/
-            Html: {
-              Charset: "UTF-8",
-              Data: message
-            },
-            Text: {
-              Charset: "UTF-8",
-              Data: "TEXT_FORMAT_BODY"
-            }
-          },
-          Subject: {
-            Charset: 'UTF-8',
-            Data: subject
-          }
-        },
-        Source: 'noreply@culineer.co', /!* required *!/
-      };
-
-// Create the promise and SES service object
-      let sendPromise = new AWS.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
-
-// Handle promise's fulfilled/rejected states
-      sendPromise.then(
-        function (data) {
-          //console.log(data.MessageId);
-        }).catch(
-        function (err) {
-          console.error(err, err.stack);
-        });
-
-      res.sendStatus(200);
-    }
-
-});
-*/
 
 /*********************************
 **********************************
