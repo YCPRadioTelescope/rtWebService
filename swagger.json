@@ -27,6 +27,10 @@
     {
       "name": "email",
       "description": "Access to AWS SES"
+    },
+    {
+      "name": "sensor",
+      "description": "Manage sensors"
     }
   ],
   "schemes": [
@@ -243,6 +247,35 @@
         }
       }
     },
+    "/setStatus": {
+      "post": {
+        "tags": [
+          "sensor"
+        ],
+        "summary": "sets all sensor's details to details parameter",
+        "description": "",
+        "operationId": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "integer to assign to all sensor details",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/setStatus"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/appointments": {
       "post": {
         "tags": [
@@ -335,6 +368,12 @@
             "schema": {
               "$ref": "#/definitions/appointment"
             }
+          },
+          "401": {
+            "description": "Request does not contain required fields"
+          },
+          "403": {
+            "description": "Wrong Credentials"
           }
         }
       }
@@ -434,6 +473,20 @@
       },
       "xml": {
         "name": "Email"
+      }
+    },
+    "setStatus": {
+      "type": "object",
+      "properties": {
+        "UUID": {
+          "type": "string"
+        },
+        "details": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "setStatus"
       }
     },
     "userII": {
