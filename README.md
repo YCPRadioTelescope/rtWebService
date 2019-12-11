@@ -33,4 +33,8 @@ In the middle where it says running version, click upload and deploy<br/>
 Upload the newly zipped bundle<br/>
 
 
+## Testing
+
+Run yarn jest
+
 
