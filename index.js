@@ -107,7 +107,7 @@ app.post('/setOverride', function (req, res) {
   }
 });
 
-app.post('/setStatus', function (req, res) {
+app.post('/setAllStatus', function (req, res) {
   if(req.body.UUID !== config.UUID){
     res.statusMessage = "Wrong credentials";
     res.sendStatus(403);

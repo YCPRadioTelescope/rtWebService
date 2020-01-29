@@ -247,12 +247,12 @@
         }
       }
     },
-    "/setStatus": {
+    "/setAllStatus": {
       "post": {
         "tags": [
           "sensor"
         ],
-        "summary": "sets all sensor's details to details parameter",
+        "summary": "sets all sensor's details (sensor color) to parameter",
         "description": "",
         "operationId": "",
         "produces": [

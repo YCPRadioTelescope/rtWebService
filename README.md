@@ -37,4 +37,25 @@ Upload the newly zipped bundle<br/>
 
 Run yarn jest
 
+## Common Errors
+
+connect ETIMEDOUT
+    at Connection._handleConnectTimeout (C:\....\rtWebService\node_modules\mysql\lib\Connection.js:412:13)
+    
+This occurs if the production database cannot be reached.
+Check if you are connected to the internet and you have a security inbound route set to your IP address.
+
+Instructions to fix:
+Long in to AWS
+Click on RDS 
+Click on DB instances
+Select ycas-rt-production
+Under connectivity and security, click the link under VPC security groups
+Click the Inbound tab and press edit
+Find your rule (or create a new one if you dont)
+click source and set to my IP
+You should be set
+
+  
+
 
