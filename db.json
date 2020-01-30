@@ -117,31 +117,36 @@
       "id": 0,
       "name": "gate",
       "details": 0,
-      "override": 1
+      "override": 0,
+      "value": 0
     },
     {
       "id": 1,
       "name": "Proximity",
       "details": 1,
-      "override": 0
+      "override": 0,
+      "value": 0
     },
     {
       "id": 2,
       "name": "Azimuth_Motor",
       "details": 2,
-      "override": 1
+      "override": 1,
+      "value": 0
     },
     {
       "id": 3,
       "name": "Elevation_Motor",
       "details": 1,
-      "override": 0
+      "override": 0,
+      "value": 0
     },
     {
       "id": 4,
       "name": "Weather_Station",
       "details": 0,
-      "override": 0
+      "override": 0,
+      "value": 0
     }
   ]
 }

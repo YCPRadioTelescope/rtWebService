@@ -46,15 +46,15 @@ This occurs if the production database cannot be reached.
 Check if you are connected to the internet and you have a security inbound route set to your IP address.
 
 Instructions to fix:
-Long in to AWS
-Click on RDS 
-Click on DB instances
-Select ycas-rt-production
-Under connectivity and security, click the link under VPC security groups
-Click the Inbound tab and press edit
-Find your rule (or create a new one if you dont)
-click source and set to my IP
-You should be set
+Log in to AWS <br/>
+Click on RDS <br/>
+Click on DB instances <br/>
+Select ycas-rt-production <br/>
+Under connectivity and security, click the link under VPC security groups <br/>
+Click the Inbound tab and press edit<br/>
+Find your rule (or create a new one if you dont)<br/>
+click source and set to my IP<br/>
+error should disappear<br/>
 
   
 

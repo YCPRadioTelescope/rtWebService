@@ -107,6 +107,54 @@ app.post('/setOverride', function (req, res) {
   }
 });
 
+app.post('/setValue', function (req, res) {
+  if(req.body.UUID !== config.UUID){
+    res.statusMessage = "Wrong credentials";
+    res.sendStatus(403);
+  }
+  if (!req.body.name) {
+    res.statusMessage = "Request does not contain required fields";
+    res.sendStatus(401);
+  }
+  if (req.body.value == null) {
+    res.statusMessage = "Request does not contain required fields";
+    res.sendStatus(401);
+  }
+  else {
+    console.log(req.body);
+
+    db.get('sensorStatus')
+        .find({ name: req.body.name })
+        .assign({ value: req.body.value})
+        .write()
+    res.send(db.get('sensorStatus').value());
+  }
+});
+
+app.post('/setStatus', function (req, res) {
+  if(req.body.UUID !== config.UUID){
+    res.statusMessage = "Wrong credentials";
+    res.sendStatus(403);
+  }
+  if (!req.body.name) {
+    res.statusMessage = "Request does not contain required fields";
+    res.sendStatus(401);
+  }
+  if (req.body.details == null) {
+    res.statusMessage = "Request does not contain required fields";
+    res.sendStatus(401);
+  }
+  else {
+    console.log(req.body);
+
+    db.get('sensorStatus')
+        .find({ name: req.body.name })
+        .assign({ details: req.body.details})
+        .write()
+    res.send(db.get('sensorStatus').value());
+  }
+});
+
 app.post('/setAllStatus', function (req, res) {
   if(req.body.UUID !== config.UUID){
     res.statusMessage = "Wrong credentials";

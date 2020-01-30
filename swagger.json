@@ -247,12 +247,117 @@
         }
       }
     },
+    "/setOverride": {
+      "post": {
+        "tags": [
+          "sensor"
+        ],
+        "summary": "set the sensor's details ",
+        "description": "",
+        "operationId": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "integer to assign to all sensor details",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/setOverride"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Request does not contain proper fields. name or details parameters are missing"
+          },
+          "403": {
+            "description": "Wrong Credentials. "
+          }
+        }
+      }
+    },
+    "/setStatus": {
+      "post": {
+        "tags": [
+          "sensor"
+        ],
+        "summary": "set the sensor's details ",
+        "description": "",
+        "operationId": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "integer to assign to all sensor details",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/setStatus"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Request does not contain proper fields. name or details parameters are missing"
+          },
+          "403": {
+            "description": "Wrong Credentials. "
+          }
+        }
+      }
+    },
+    "/setValue": {
+      "post": {
+        "tags": [
+          "sensor"
+        ],
+        "summary": "set the sensor's value ",
+        "description": "",
+        "operationId": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "integer to assign to all sensor details",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/setValue"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Request does not contain proper fields. name and/or value feilds are missing"
+          },
+          "403": {
+            "description": "Wrong Credentials."
+          }
+        }
+      }
+    },
     "/setAllStatus": {
       "post": {
         "tags": [
           "sensor"
         ],
-        "summary": "sets all sensor's details (sensor color) to parameter",
+        "summary": "sets all sensor's details (sensor color) to details feild",
         "description": "",
         "operationId": "",
         "produces": [
@@ -482,6 +587,34 @@
           "type": "string"
         },
         "details": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "setStatus"
+      }
+    },
+    "setValue": {
+      "type": "object",
+      "properties": {
+        "UUID": {
+          "type": "string"
+        },
+        "value": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "setStatus"
+      }
+    },
+    "setOverride": {
+      "type": "object",
+      "properties": {
+        "UUID": {
+          "type": "string"
+        },
+        "override": {
           "type": "integer"
         }
       },
