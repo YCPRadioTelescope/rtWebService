@@ -252,7 +252,7 @@
         "tags": [
           "sensor"
         ],
-        "summary": "set the sensor's details ",
+        "summary": "set the sensor's Override ",
         "description": "",
         "operationId": "",
         "produces": [
@@ -262,7 +262,7 @@
           {
             "in": "body",
             "name": "body",
-            "description": "integer to assign to all sensor details",
+            "description": "Assigns the override to the named sensor",
             "required": true,
             "schema": {
               "$ref": "#/definitions/setOverride"
@@ -274,7 +274,7 @@
             "description": "OK"
           },
           "401": {
-            "description": "Request does not contain proper fields. name or details parameters are missing"
+            "description": "Request does not contain proper fields. name or status parameters are missing"
           },
           "403": {
             "description": "Wrong Credentials. "
@@ -287,7 +287,7 @@
         "tags": [
           "sensor"
         ],
-        "summary": "set the sensor's details ",
+        "summary": "set the sensor's status. should be a integer from 0 to 2 ",
         "description": "",
         "operationId": "",
         "produces": [
@@ -297,7 +297,7 @@
           {
             "in": "body",
             "name": "body",
-            "description": "integer to assign to all sensor details",
+            "description": "integer to assign to sensor's status",
             "required": true,
             "schema": {
               "$ref": "#/definitions/setStatus"
@@ -589,7 +589,7 @@
         "name": {
           "type": "string"
         },
-        "details": {
+        "status": {
           "type": "integer"
         }
       },
@@ -603,7 +603,7 @@
         "UUID": {
           "type": "string"
         },
-        "details": {
+        "status": {
           "type": "integer"
         }
       },

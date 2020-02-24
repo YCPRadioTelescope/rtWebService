@@ -140,8 +140,12 @@ app.post('/setStatus', function (req, res) {
     res.statusMessage = "Request does not contain required fields";
     res.sendStatus(401);
   }
-  if (req.body.details == null) {
+  if (req.body.status == null) {
     res.statusMessage = "Request does not contain required fields";
+    res.sendStatus(401);
+  }
+  if(req.body.status < 0 || req.body.status >2){
+    res.statusMessage = "status should be the integer 0, 1 or 2";
     res.sendStatus(401);
   }
   else {
@@ -149,7 +153,7 @@ app.post('/setStatus', function (req, res) {
 
     db.get('sensorStatus')
         .find({ name: req.body.name })
-        .assign({ details: req.body.details})
+        .assign({ status: req.body.status})
         .write()
     res.send(db.get('sensorStatus').value());
   }
@@ -160,8 +164,12 @@ app.post('/setAllStatus', function (req, res) {
     res.statusMessage = "Wrong credentials";
     res.sendStatus(403);
   }
-  if (!req.body.details) {
+  if (!req.body.status) {
     res.statusMessage = "Request does not contain required fields";
+    res.sendStatus(401);
+  }
+  if(req.body.status < 0 || req.body.status >2){
+    res.statusMessage = "status should be the integer 0, 1 or 2";
     res.sendStatus(401);
   }
   else {
@@ -169,23 +177,23 @@ app.post('/setAllStatus', function (req, res) {
 
     db.get('sensorStatus')
         .find({ name: "gate" })
-        .assign({ details: req.body.details})
+        .assign({ status: req.body.status})
         .write()
     db.get('sensorStatus')
         .find({ name: "Proximity" })
-        .assign({ details: req.body.details})
+        .assign({ status: req.body.status})
         .write()
     db.get('sensorStatus')
         .find({ name: "Azimuth_Motor" })
-        .assign({ details: req.body.details})
+        .assign({ status: req.body.status})
         .write()
     db.get('sensorStatus')
         .find({ name: "Elevation_Motor" })
-        .assign({ details: req.body.details})
+        .assign({ status: req.body.status})
         .write()
     db.get('sensorStatus')
         .find({ name: "Weather_Station" })
-        .assign({ details: req.body.details})
+        .assign({ status: req.body.status})
         .write()
     res.send(db.get('sensorStatus').value());
   }
