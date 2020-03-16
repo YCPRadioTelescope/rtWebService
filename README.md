@@ -8,15 +8,28 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installing
 
+Install the latest version of Node.js: https://nodejs.org/en/
+
+Install Chocolatey: https://chocolatey.org/install
+
+Then Install Yarn: https://classic.yarnpkg.com/en/docs/install/#windows-stable
+
+
 Clone the project<br/>
 In the terminal navigate into the project folder<br/>
 run npm install<br/> 
 
+Acquire the config.json file from Todd or one of the other mobile app team members
+and place it in the main directory (same area as index.js).
 ## Running the Service
 
 In the terminal, navigate to the project folder<br/>
 run node index.js
 
+The service will attempt to connect to the host, which is production by default.
+
+If you would like to connect to a local backend then install the backend (instructions: https://github.com/YCPRadioTelescope/RT-Contracts)
+ and then change "host" in config.json to the address of the local backend
 ## Deploying to AWS
 
 Go to aws and get an access key and a secret key<br/>
