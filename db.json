@@ -115,35 +115,56 @@
   "sensorStatus": [
     {
       "id": 0,
-      "name": "gate",
+      "name": "MAIN_GATE",
       "status": 0,
       "override": 0,
       "value": 0
     },
     {
       "id": 1,
-      "name": "Proximity",
+      "name": "AZIMUTH_MOT_TEMP",
       "status": 1,
       "override": 0,
       "value": 0
     },
     {
       "id": 2,
-      "name": "Azimuth_Motor",
-      "status": 2,
-      "override": 1,
-      "value": 0
-    },
-    {
-      "id": 3,
-      "name": "Elevation_Motor",
+      "name": "ELEVATION_MOT_TEMP",
       "status": 1,
       "override": 0,
       "value": 0
     },
     {
+      "id": 3,
+      "name": "AZIMUTH_LIMIT_10",
+      "status": 2,
+      "override": 1,
+      "value": 0
+    },
+    {
       "id": 4,
-      "name": "Weather_Station",
+      "name": "AZIMUTH_LIMIT_375",
+      "status": 2,
+      "override": 1,
+      "value": 0
+    },
+    {
+      "id": 5,
+      "name": "ELEVATION_LIMIT_0",
+      "status": 1,
+      "override": 0,
+      "value": 0
+    },
+    {
+      "id": 6,
+      "name": "ELEVATION_LIMIT_90",
+      "status": 1,
+      "override": 0,
+      "value": 0
+    },
+    {
+      "id": 7,
+      "name": "WEATHER_STATION",
       "status": 0,
       "override": 0,
       "value": 0
