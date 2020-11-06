@@ -1,6 +1,7 @@
 # Radio telescope Webservice
 
-A  webService to retrieve data from the control room
+A  webService to retrieve data from the control room<br/>
+A visual representation of the endpoints and the objects associated can be seen [here](http://rtwebservice.us-east-1.elasticbeanstalk.com/api-docs/) using swagger.
 
 ## Getting Started
 
